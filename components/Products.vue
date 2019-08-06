@@ -50,11 +50,11 @@
       <div class="card-footer btn-actions">
         <div class="card-footer-item field is-grouped">
           <div class="buttons">
-            <button class="button is-primary" v-if="!product.isAddedToCart" @click="addToCart(product.ids)">{{ addToCartLabel }}</button>
-            <button class="button is-text" v-if="product.isAddedToCart" @click="removeFromCart(product.ids, false)">{{ removeFromCartLabel }}</button>
+            <button class="button is-primary" v-if="!product.isAddedToCart" @click="addToCart(product.id)">{{ addToCartLabel }}</button>
+            <button class="button is-text" v-if="product.isAddedToCart" @click="removeFromCart(product.id, false)">{{ removeFromCartLabel }}</button>
           </div>
            <div class="select is-rounded is-small">
-            <select @change="onSelectQuantity(product.ids)" v-model="selected">
+            <select @change="onSelectQuantity(product.id)" v-model="selected">
               <option v-for="quantity in quantityArray" :value="quantity">{{ quantity }}</option>
             </select>
           </div>

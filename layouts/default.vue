@@ -17,6 +17,8 @@ import VmFooter from '@/components/footer/Footer';
 import VmLoginModal from '@/components/modal/Login';
 import VmRegistrationModal from '@/components/modal/Registration';
 import VmCheckoutModal from '@/components/modal/Checkout';
+import Vue from 'vue'
+import BootstrapVue from 'bootstrap-vue'
 
 export default {
   components: {

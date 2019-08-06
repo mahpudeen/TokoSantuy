@@ -8,8 +8,8 @@
 			</header>
 			<section class="modal-card-body">
 				<div v-if="!isCheckoutSection">
-					<div class="box" v-for="product in products" :key="product.id">
-						<button class="is-pulled-right button is-info is-inverted" @click="removeFromCart(product.id)">{{ removeLabel }}</button>
+					<div class="box" v-for="product in products" :key="product.ids">
+						<button class="is-pulled-right button is-info is-inverted" @click="removeFromCart(product.ids)">{{ removeLabel }}</button>
 						<p>{{ product.title }}  {{ product.quantity > 0 ?  ` - Quantity: ${product.quantity}` : ''}}</p>
 						<p>{{ product.price }} &euro;</p>
 					</div>

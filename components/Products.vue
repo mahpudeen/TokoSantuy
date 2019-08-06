@@ -2,7 +2,7 @@
   <div>
     <div class="card-image">
       <figure class="image is-4by3">
-        <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+        <img :src="product.url" alt="Placeholder image">
       </figure>
     </div>
     <div class="card-content">
@@ -11,12 +11,12 @@
           <p class="title is-4">{{ product.title }}</p>
         </div>
         <div>
-          <button class="button is-small" :title="removeFromFavouriteLabel" v-show="product.isFavourite" @click="removeFromFavourite(product.id)">
+          <button class="button is-small" :title="removeFromFavouriteLabel" v-show="product.isFavourite" @click="removeFromFavourite(product.ids)">
             <span class="icon is-small">
               <i class="fa fa-heart"></i>
             </span>
           </button>
-          <button class="button is-small" :title="addToFavouriteLabel" v-show="!product.isFavourite" @click="saveToFavorite(product.id)">
+          <button class="button is-small" :title="addToFavouriteLabel" v-show="!product.isFavourite" @click="saveToFavorite(product.ids)">
             <span class="icon is-small">
               <i class="fa fa-heart-o"></i>
             </span>
@@ -50,11 +50,11 @@
       <div class="card-footer btn-actions">
         <div class="card-footer-item field is-grouped">
           <div class="buttons">
-            <button class="button is-primary" v-if="!product.isAddedToCart" @click="addToCart(product.id)">{{ addToCartLabel }}</button>
-            <button class="button is-text" v-if="product.isAddedToCart" @click="removeFromCart(product.id, false)">{{ removeFromCartLabel }}</button>
+            <button class="button is-primary" v-if="!product.isAddedToCart" @click="addToCart(product.ids)">{{ addToCartLabel }}</button>
+            <button class="button is-text" v-if="product.isAddedToCart" @click="removeFromCart(product.ids, false)">{{ removeFromCartLabel }}</button>
           </div>
            <div class="select is-rounded is-small">
-            <select @change="onSelectQuantity(product.id)" v-model="selected">
+            <select @change="onSelectQuantity(product.ids)" v-model="selected">
               <option v-for="quantity in quantityArray" :value="quantity">{{ quantity }}</option>
             </select>
           </div>
@@ -66,7 +66,7 @@
       :to="{
         name: 'product_detail-id',
         params: {
-          id: product.id,
+          id: product.ids,
           title: product.title,
           price: product.price,
           rating: product.ratings,

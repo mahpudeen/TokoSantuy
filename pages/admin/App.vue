@@ -4,15 +4,13 @@
     <table class="table table-bordered mt-4">
       <thead class="thead-light">
         <tr>
-          <th width="1">#</th>
+          <th width="1">Id</th>
           <th width="10%">Title</th>
           <th width="200">Description</th>
           <th width="10%">Price</th>
-          <th width="10%">Ratings</th>
-          <th width="10%">Review</th>
-          <th width="10%">URL</th>
-          <th width="10%">Discount</th>
-          <th width="10%">Total</th>
+          <th width="1">Ratings</th>
+          <th width="1">Review</th>
+          <th width="10">URL</th>
           <th width="200">Action</th>
         </tr>
       </thead>
@@ -20,15 +18,9 @@
         <tr v-for="(item, index) in items" :key="index">
           <td>{{ index + 1 }}</td>
           <td>
-            <span v-if="editIndex !== index">{{ item.code }}</span>
+            <span v-if="editIndex !== index">{{ item.title }}</span>
             <span v-if="editIndex === index">
-              <input class="form-control form-control-sm" v-model="item.code">
-            </span>
-          </td>
-          <td>
-            <span v-if="editIndex !== index">{{ item.name }}</span>
-            <span v-if="editIndex === index">
-              <input class="form-control form-control-sm" v-model="item.name">
+              <input class="form-control form-control-sm" v-model="item.title">
             </span>
           </td>
           <td>
@@ -38,30 +30,29 @@
             </span>
           </td>
           <td>
-            <span v-if="editIndex !== index">{{ item.qty }}</span>
+            <span v-if="editIndex !== index">{{ item.price | money }}</span>
             <span v-if="editIndex === index">
-              <input class="form-control form-control-sm" type="number" v-model.number="item.qty">
+              <input class="form-control form-control-sm" type="number" v-model="item.price">
             </span>
           </td>
           <td>
-            <span v-if="editIndex !== index">{{ item.unit }}</span>
+            <span v-if="editIndex !== index">{{ item.ratings }}</span>
             <span v-if="editIndex === index">
-              <input class="form-control form-control-sm" v-model="item.unit">
+              <input class="form-control form-control-sm" type="number" min="1" max="10" v-model.number="item.ratings">
             </span>
           </td>
           <td>
-            <span v-if="editIndex !== index">{{ item.price }}</span>
+            <span v-if="editIndex !== index">{{ item.reviews }}</span>
             <span v-if="editIndex === index">
-              <input class="form-control form-control-sm" type="number" v-model.number="item.price">
+              <input class="form-control form-control-sm" type="number" min="1" max="10" v-model="item.reviews">
             </span>
           </td>
           <td>
-            <span v-if="editIndex !== index">{{ item.discount }}</span>
+            <span v-if="editIndex !== index">{{ item.url }}</span>
             <span v-if="editIndex === index">
-              <input class="form-control form-control-sm" type="number" v-model.number="item.discount">
+              <input class="form-control form-control-sm" v-model.number="item.url">
             </span>
           </td>
-          <td><div class="text-right">{{ subtotal(item) | money }}</div></td>
           <td>
             <span v-if="editIndex !== index">
               <button @click="edit(item, index)" class="btn btn-sm btn-outline-secondary mr-2">Edit</button>
@@ -77,13 +68,14 @@
     </table>
 
     <div class="col-3 offset-9 text-right my-3">
-      <button v-show="!editIndex" @click="add" class="btn btn-sm btn-secondary">Add item</button>
+      <button v-show="!editIndex" @click="add" class="btn btn-sm btn-secondary">Tambah barang</button>
     </div>
 
   </div>
 </template>
 
 <script>
+import produk from "../../api/produk/index";
 export default {
 
   name: 'Uhuy',
@@ -96,15 +88,21 @@ export default {
     return {
       editIndex: null,
       originalData: null,
-      items: [
-        { code: '111', name: 'Cuka', description: 'Cuka mahal', qty: 1, unit: null, price: 3500, discount: 10, },
-        { code: '222', name: 'Kubis', description: 'Kubis enak', qty: 2, unit: null, price: 5000, discount: 2, },
-      ],
+      items: [],
       tax: 10,
     }
   },
 
   methods: {
+
+    delete() {
+      let self = this;
+      produk.deleteProduk(window, self.param).then(function(res){
+          return res
+      }).catch(function(err){
+        console.log(err)
+      });
+    },
 
     add() {
       this.originalData = null
@@ -146,19 +144,31 @@ export default {
 
   computed: {
 
-    allSubTotal() {
-      return this.items
-        .map(item => this.subtotal(item))
-        .reduce((a, b) => a + b, 0)
-    },
-
-    total() {
-      return this.tax
-        ? this.allSubTotal + (this.allSubTotal * (this.tax / 100))
-        : this.allSubTotal
-    }
+    beforeCreate(){
+      let self = this
+      produk.getProduk().then(function(datas) {
+          return datas
+      }).then(function(res){
+          console.log(res)
+          self.items = res
+      }).catch(function(err){
+          console.log(err)
+    })
+  }
 
   },
+
+  beforeCreate(){
+    let self = this
+    produk.getProduk().then(function(datas) {
+        return datas
+    }).then(function(res){
+        console.log(res)
+        self.items = res
+    }).catch(function(err){
+        console.log(err)
+    })
+  }
 
 }
 </script>

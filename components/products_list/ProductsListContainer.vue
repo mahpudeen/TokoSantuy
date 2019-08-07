@@ -4,7 +4,7 @@
       <VmProducts :product="product"></VmProducts>
     </div>
     <div class="section" v-if="products.length === 0">
-      <button class = "primary" @click="produk">Lihat Katalog Produk</button>
+      <p>{{ noProductLabel }}</p> 
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
   data () {
     return {
       id: '',
-      noProductLabel: 'No product found',
+      noProductLabel: 'Tidak ada produk',
       productsFiltered: []
     };
   },
@@ -34,6 +34,17 @@ export default {
       } else {
         return this.$store.state.products;
       }
+    }
+  },
+  created () {
+    if (this.products.length === 0) {
+      let self = this
+      produk.getProduk().then(function(ref){
+          self.$store.commit('SET_CATALOG', ref);
+          return ref
+      }).catch(function(err) {
+      console.log(err)
+      });
     }
   },
 

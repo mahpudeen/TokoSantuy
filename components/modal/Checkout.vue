@@ -10,9 +10,13 @@
 				<div v-if="!isCheckoutSection">
 					<div class="box" v-for="product in products" :key="product.id">
 						<button class="is-pulled-right button is-info is-inverted" @click="removeFromCart(product.id)">{{ removeLabel }}</button>
-						<p>{{ product.title }}  {{ product.quantity > 0 ?  ` - Quantity: ${product.quantity}` : ''}}</p>
-						<p>{{ product.price }} &euro;</p>
+						<p>{{ product.title }}  {{ product.quantity > 0 ?  ` - Jumlah : ${product.quantity}` : ''}}</p>
+						<p>Harga satuan Rp. {{ product.price }}</p>
 					</div>
+					<div class="box" v-for="product in products" :key="product.id">						
+						<div style='text-align:right;'> <b>Total Harga : </b>{{ buyLabel }} </div>
+					</div>
+					
 					<div v-if="products.length === 0">
 						<p>{{ cartEmptyLabel }}</p>
 					</div>
@@ -21,9 +25,9 @@
 					<p>You bought it :-)</p>
 				</div>
 			</section>
-			<footer class="modal-card-foot">
-				<button v-show="products.length > 0 && !isCheckoutSection" class="button is-success" @click="onNextBtn">{{ buyLabel }}</button>
-				<button v-if="isCheckoutSection" class="button is-success" @click="closeModal(true)">{{ closeLabel }}</button>
+			<footer class="modal-card-foot">		
+				<button v-show="products.length > 0 && !isCheckoutSection" class="button is-success" @click="onNextBtn">Bayar</button>
+				<button v-if="isCheckoutSection" class="button is-success" @click="closeModal(true)">{{ closeLabel }}</button>							
 			</footer>
 		</div>
 	</div>
@@ -36,8 +40,8 @@ export default {
 	data () {
 		return {
 			modalTitle: 'Checkout',
-			removeLabel: 'Remove from cart',
-			cartEmptyLabel: 'Your cart is empty',
+			removeLabel: 'Hapus dari keranjang',
+			cartEmptyLabel: 'Keranjang kosong',
 			closeLabel: 'Close',
 			isCheckoutSection: false
 		}
@@ -74,11 +78,11 @@ export default {
 				finalPrice = pricesArray.reduce((a, b) => a + b, 0); // sum the prices
 				
 				if (totalProducts > 1) { // set plural or singular
-					productLabel = 'products';
+					productLabel = 'produk';
 				} else {
-					productLabel = 'product';
+					productLabel = 'produk';
 				}
-				return `Buy ${totalProducts} ${productLabel} at ${finalPrice}€`;
+				return `Rp. ${finalPrice}`;
 		},
 		isUserLoggedIn () {
 			return this.$store.getters.isUserLoggedIn;

@@ -26,15 +26,6 @@ export default {
         console.log(err)
       });
     }
-  },
-  beforeCreate () {
-    let self = this
-    produk.getProduk().then(function(ref){
-        self.$store.commit('SET_CATALOG', ref);
-        return ref
-    }).catch(function(err) {
-      console.log(err)
-    });
   }
 };
 </script>

@@ -8,7 +8,7 @@
 							<i class="fa fa-user-plus"></i>
 						</span>
 						<span>{{ signupLabel }}</span>
-					</a>	
+					</a>
 				</p>
 				<p class="control">
 					<a v-if="!isUserLoggedIn" class="button" @click="showLoginModal">
@@ -36,15 +36,6 @@
 		</div>
 	</div>
 </template>
-
-<style>
-.button{
-	color: chocolate;
-}
-
-</style>
-
-
 
 <script>
 export default {

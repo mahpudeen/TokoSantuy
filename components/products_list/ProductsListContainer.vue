@@ -4,7 +4,7 @@
       <VmProducts :product="product"></VmProducts>
     </div>
     <div class="section" v-if="products.length === 0">
-      <p>{{ noProductLabel }}</p>
+      <button class = "primary" @click="produk">Lihat Katalog Produk</button>
     </div>
   </div>
 </template>
@@ -12,6 +12,7 @@
 <script>
 import VmProducts from '../Products';
 import { getByTitle } from '@/assets/filters';
+import produk from "../../api/produk/index";
 
 export default {
   name: 'productsList',
@@ -42,6 +43,15 @@ export default {
           titleSearched = this.$store.state.userInfo.productTitleSearched;
       
       return this.productsFiltered = getByTitle(listOfProducts, titleSearched);
+    },
+    produk() {
+        let self = this
+        produk.getProduk().then(function(ref){
+            self.$store.commit('SET_CATALOG', ref);
+            return ref
+        }).catch(function(err) {
+        console.log(err)
+        });
     }
   }
 

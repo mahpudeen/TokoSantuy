@@ -60,7 +60,7 @@
             </div>
           </div>
           <div class="card-content__price is-pulled-left">
-            <span class="title is-3"><strong>{{ product.price }}&euro;</strong></span>
+            <span class="title is-3"><strong>Rp. {{ product.price }}</strong></span>
           </div>
           <div class="card-content__btn is-pulled-right">
             <button class="button is-primary" v-if="!isAddedBtn" @click="addToCart(product.id)">{{ addToCartLabel }}</button>
@@ -81,8 +81,8 @@ export default {
   
   data () {
     return {
-      addToCartLabel: 'Add to cart',
-      removeFromCartLabel: 'Remove from cart',
+      addToCartLabel: 'Tambahkan ke keranjang',
+      removeFromCartLabel: 'Batal',
       addToFavouriteLabel: 'Add to favourite',
       removeFromFavouriteLabel: 'Remove from favourite',
       product: {},

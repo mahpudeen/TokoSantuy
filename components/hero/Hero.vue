@@ -8,6 +8,7 @@
         <h2 class="subtitle">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
         </h2>
+        
       </div>
     </div>
   </div>

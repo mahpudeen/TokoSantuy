@@ -13,7 +13,7 @@
 						<p>{{ product.title }}  {{ product.quantity > 0 ?  ` - Jumlah : ${product.quantity}` : ''}}</p>
 						<p>Harga satuan Rp. {{ product.price }}</p>
 					</div>
-					<div class="box" v-for="product in products" :key="product.id">						
+					<div v-if="products.length > 0">
 						<div style='text-align:right;'> <b>Total Harga : </b>{{ buyLabel }} </div>
 					</div>
 					

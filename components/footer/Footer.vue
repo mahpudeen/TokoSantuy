@@ -1,12 +1,7 @@
 <template>
   <div class="footer">
-    <div class="columns container">
-      <div class="column">
-        <p>Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet.</p>
-      </div>
     <div class="column has-text-right">
-      <p>Vuemmerce | Made with ❤</p>
-    </div>
+      <p>® Copyright | Made with ❤ by Desti, Mahpudeen, Tomi </p>
     </div>
   </div>
 </template>
@@ -17,9 +12,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
  .footer {
-   background: #b9e2fc;
+   background-color: #6495ED;
    color: black;
+   padding :3px;
  }
 </style>

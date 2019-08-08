@@ -57,7 +57,16 @@ export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const REMOVE_PRODUCT_SUCCESS = 'REMOVE_PRODUCT_SUCCESS';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 export const UPDATE_PRODUCT_SUCCESS = 'UPDATE_PRODUCT_SUCCESS'
+export const ADD_PRODUCT = 'ADD_PRODUCT'
+export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS'
 export const mutations = {
+  ADD_PRODUCT: (state, payload) => {
+    state.showLoader = true
+  },
+  ADD_PRODUCT_SUCCESS: (state, payload) => {
+    state.showLoader = false
+    state.products.push(payload)
+  },
   UPDATE_PRODUCT: (state, payload) => {
     state.showLoader = true
   },

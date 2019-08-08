@@ -68,13 +68,9 @@
 </template>
 
 <script>
-import employee from "../../api/login/index";
 import { isValidEmail } from '@/assets/validators';
-
-
 export default {
   name: 'login',
-
   data () {
     return {
       modalTitle: 'Log in',
@@ -85,7 +81,6 @@ export default {
       emailNotValidLabel: 'Valid email required',
       btnLoggedInLabel: 'Close',
       emailPlaceholder: 'Your email',
-      param:{},
       email: '',
       password: '',
       highlightEmailWithError: null,
@@ -93,7 +88,6 @@ export default {
       isFormSuccess: false
     };
   },
-
   computed: {
     isUserLoggedIn () {
       return this.$store.getters.isUserLoggedIn;
@@ -106,41 +100,26 @@ export default {
       }
     }
   },
-
   methods: {
     closeModal () {
       this.$store.commit('showLoginModal', false);
     },
     checkForm (e) {
-      const self =this;
-           login.getLogin(window, self.email, self.password)
-          console.log(email,password)
-          .then(function(result){
-            return result;
-          })
-          .then (function(err){
-            console.log(err);
-          })
-
       e.preventDefault();
-
       if (this.email && this.password) {
         this.highlightEmailWithError = false;
         this.highlightPasswordWithError = false;
         this.isFormSuccess = true;
         this.$store.commit('isUserLoggedIn', this.isFormSuccess);
       }
-
       if (!this.email) {
         this.highlightEmailWithError = true;
-
         if (this.email && !isValidEmail(this.email)) {
           this.emailRequiredLabel = this.emailNotValidLabel;
         }
       } else {
         this.highlightEmailWithError = false;
       }
-
       if (!this.password) {
         this.highlightPasswordWithError = true;
       } else {
@@ -152,7 +131,6 @@ export default {
         this.highlightEmailWithError = false;
       } else {
         this.highlightEmailWithError = true;
-
         if (!isValidEmail(emailValue)) {
           this.emailRequiredLabel = this.emailNotValidLabel;
         }
@@ -164,21 +142,7 @@ export default {
       } else {
         this.highlightPasswordWithError = true;
       }
-    },
-      // funcLogin(){
-        
-      //     const self = this;
-
-      //     login.getLogin(window, self.email, self.password)
-      //     console.log(email,password)
-      //     .then(function(result){
-      //       return result;
-      //     })
-      //     .then (function(err){
-      //       console.log(err);
-      //     })
-
-      // }
+    }
   }
 };
 </script>
@@ -191,5 +155,3 @@ export default {
   color: green;
 }
 </style>
-
-

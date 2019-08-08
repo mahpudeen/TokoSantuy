@@ -60,7 +60,7 @@
             </span>
             <span v-else>
               <button class="btn btn-sm btn-outline-secondary mr-2" @click="cancel(item)">Cancel</button>
-              <button class="btn btn-sm btn-outline-secondary mr-2" @click="save(item)">Save</button>
+              <button class="btn btn-sm btn-outline-secondary mr-2" @click="updateProduct(item)">Save</button>
             </span>
           </td>
         </tr>
@@ -97,6 +97,17 @@ export default {
     deleteProduct (id) {
         console.log(id)
         this.$store.dispatch('removeProduct', id)
+        window.location.reload();
+    },
+
+    addProduct (item) {
+        console.log('model', item)
+        this.$store.dispatch('addProduct', item)
+    },
+
+    updateProduct (item) {
+        console.log('model', item)
+        this.$store.dispatch('updateProduct', item)
         window.location.reload();
     },
 

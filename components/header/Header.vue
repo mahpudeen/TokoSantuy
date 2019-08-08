@@ -29,7 +29,7 @@
             <span class="icon">
               <i class="fa fa-shopping-cart"></i>
             </span>
-            <span :class="[numProductsAdded > 0 ? 'tag is-info' : '']">{{ numProductsAdded }}</span>
+           <p class="a"> <span :class="[numProductsAdded > 0 ? 'tag is-info' : '']">{{ numProductsAdded }}</span></p>
           </div>
         </div>
       </div>
@@ -106,8 +106,12 @@
     color: whitesmoke;
     font-size: 20px;
   }
-  .image{
-    height: 150px;
-    width: 150px
+  .a {
+    color: white
+  }
+  .title[data-v-0bfb1878]{
+    width: 100px;
+    height: 35px;
+    border-radius: 20%
   }
 </style>

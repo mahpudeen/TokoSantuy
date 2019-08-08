@@ -11,10 +11,10 @@
 					<div class="box" v-for="product in products" :key="product.id">
 						<button class="is-pulled-right button is-info is-inverted" @click="removeFromCart(product.id)">{{ removeLabel }}</button>
 						<p>{{ product.title }}  {{ product.quantity > 0 ?  ` - Jumlah : ${product.quantity}` : ''}}</p>
-						<p>Harga satuan Rp. {{ product.price }}</p>
+						<p>Harga satuan {{ product.price | money }}</p>
 					</div>
 					<div v-if="products.length > 0">
-						<div style='text-align:right;'> <b>Total Harga : </b>{{ buyLabel }} </div>
+						<div style='text-align:right;'> <b>Total Harga : </b>{{ buyLabel | money }} </div>
 					</div>
 					
 					<div v-if="products.length === 0">
@@ -36,6 +36,10 @@
 <script>
 export default {
 	name: 'checkout',
+
+	filters: {
+    	money: (value) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value)
+  	},
     
 	data () {
 		return {
@@ -82,7 +86,7 @@ export default {
 				} else {
 					productLabel = 'produk';
 				}
-				return `Rp. ${finalPrice}`;
+				return `${finalPrice}`;
 		},
 		isUserLoggedIn () {
 			return this.$store.getters.isUserLoggedIn;

@@ -7,7 +7,7 @@
           <p v-if="isUserLoggedIn" class="modal-card-title">{{ modalTitleLoggedIn }}</p>
           <button class="delete" aria-label="close" @click="closeModal"></button>
       </header>
-      <form @submit="checkForm" action="#" method="get">
+      <form @submit="checkForm" action="#" method="post">
         <section class="modal-card-body">
           <div v-if="!isUserLoggedIn">
             <div class="field">
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import register from "../../api/register/index.js";
+import employee from "../../api/login/index";
 import { isValidEmail } from '@/assets/validators';
 
 
@@ -85,6 +85,7 @@ export default {
       emailNotValidLabel: 'Valid email required',
       btnLoggedInLabel: 'Close',
       emailPlaceholder: 'Your email',
+      param:{},
       email: '',
       password: '',
       highlightEmailWithError: null,
@@ -112,11 +113,10 @@ export default {
     },
     checkForm (e) {
       const self =this;
-           register.getLoginn(window, self.email, self.password)
+           login.getLogin(window, self.email, self.password)
           console.log(email,password)
           .then(function(result){
             return result;
-            console.log(result)
           })
           .then (function(err){
             console.log(err);
@@ -124,24 +124,24 @@ export default {
 
       e.preventDefault();
 
-      if (self.email && self.password) {
+      if (this.email && this.password) {
         this.highlightEmailWithError = false;
         this.highlightPasswordWithError = false;
         this.isFormSuccess = true;
         this.$store.commit('isUserLoggedIn', this.isFormSuccess);
       }
 
-      if (!self.email) {
+      if (!this.email) {
         this.highlightEmailWithError = true;
 
-        if (self.email && !isValidEmail(self.email)) {
+        if (this.email && !isValidEmail(this.email)) {
           this.emailRequiredLabel = this.emailNotValidLabel;
         }
       } else {
         this.highlightEmailWithError = false;
       }
 
-      if (!self.password) {
+      if (!this.password) {
         this.highlightPasswordWithError = true;
       } else {
         this.highlightPasswordWithError = false;
@@ -169,11 +169,10 @@ export default {
         
       //     const self = this;
 
-      //     register.getLoginn(window, self.email, self.password)
+      //     login.getLogin(window, self.email, self.password)
       //     console.log(email,password)
       //     .then(function(result){
       //       return result;
-            
       //     })
       //     .then (function(err){
       //       console.log(err);

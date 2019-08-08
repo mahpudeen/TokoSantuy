@@ -54,13 +54,17 @@
             </span>
           </td>
           <td>
-            <span v-if="editIndex !== index">
+            <span v-if="editIndex !== index && tambahkan === false">
               <button @click="edit(item, index)" class="btn btn-sm btn-outline-secondary mr-2">Edit</button>
               <button @click="deleteProduct(item.id)" class="btn btn-sm btn-outline-secondary mr-2">Remove</button>
             </span>
-            <span v-else>
+            <span v-else-if="editIndex === index && tambahkan === true">
               <button class="btn btn-sm btn-outline-secondary mr-2" @click="cancel(item)">Cancel</button>
-              <button class="btn btn-sm btn-outline-secondary mr-2" @click="save(item)">Save</button>
+              <button class="btn btn-sm btn-outline-secondary mr-2" @click="addProduct(item)">Tambahkan</button>
+            </span>
+            <span v-else-if="editIndex === index && tambahkan === false">
+              <button class="btn btn-sm btn-outline-secondary mr-2" @click="cancel(item)">Cancel</button>
+              <button class="btn btn-sm btn-outline-secondary mr-2" @click="updateProduct(item)">Save</button>
             </span>
           </td>
         </tr>
@@ -89,6 +93,7 @@ export default {
       editIndex: null,
       originalData: null,
       items: [],
+      tambahkan: false,
     }
   },
 
@@ -97,6 +102,18 @@ export default {
     deleteProduct (id) {
         console.log(id)
         this.$store.dispatch('removeProduct', id)
+        window.location.reload();
+    },
+
+    addProduct (item) {
+        console.log('model', item)
+        this.$store.dispatch('addProduct', item)
+        window.location.reload();
+    },
+
+    updateProduct (item) {
+        console.log('model', item)
+        this.$store.dispatch('updateProduct', item)
         window.location.reload();
     },
 
@@ -111,8 +128,9 @@ export default {
 
     add() {
       this.originalData = null
-      this.items.push({ code: '', name: '', description: '', qty: 1, unit: 1, price: 0, discount: 0 })
+      this.items.push({ ids: this.items.length + 1 ,title: '', description: '', price: 1286000, ratings: 3, reviews: 7, url: 'haha' })
       this.editIndex = this.items.length - 1
+      this.tambahkan = true
     },
 
     edit(item, index) {
@@ -122,6 +140,7 @@ export default {
 
     cancel(item) {
       this.editIndex = null
+      this.tambahkan = false
 
       if (!this.originalData) {
         this.items.splice(this.items.indexOf(item), 1)
@@ -148,6 +167,17 @@ export default {
   },
 
   computed: {
+    produk(){
+    let self = this
+    produk.getProduk().then(function(datas) {
+        return datas
+    }).then(function(res){
+        console.log(res)
+        self.items = res
+    }).catch(function(err){
+        console.log(err)
+    })
+  }
   },
 
   beforeCreate(){

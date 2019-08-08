@@ -55,7 +55,25 @@ import axios from 'axios';
 export const API_BASE = 'http://localhost:3001/api/';
 export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
 export const REMOVE_PRODUCT_SUCCESS = 'REMOVE_PRODUCT_SUCCESS';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+export const UPDATE_PRODUCT_SUCCESS = 'UPDATE_PRODUCT_SUCCESS'
+export const ADD_PRODUCT = 'ADD_PRODUCT'
+export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS'
 export const mutations = {
+  ADD_PRODUCT: (state, payload) => {
+    state.showLoader = true
+  },
+  ADD_PRODUCT_SUCCESS: (state, payload) => {
+    state.showLoader = false
+    state.products.push(payload)
+  },
+  UPDATE_PRODUCT: (state, payload) => {
+    state.showLoader = true
+  },
+  UPDATE_PRODUCT_SUCCESS: (state, payload) => {
+    state.showLoader = false
+    state.products = state.products.map(p => p.id === payload.id)
+  },
   REMOVE_PRODUCT: (state, payload) => {
     state.showLoader = true
   },
@@ -166,5 +184,17 @@ export const actions = {
       console.debug('response', response.data)
       commit(REMOVE_PRODUCT_SUCCESS, response.data)
     })
-  }
+  },
+  addProduct ({commit}, payload) {
+    commit(ADD_PRODUCT)
+    axios.post(`${API_BASE}/produks`, payload).then(response => {
+      commit(ADD_PRODUCT_SUCCESS, response.data)
+    })
+  },
+  updateProduct ({commit}, payload) {
+    commit(UPDATE_PRODUCT)
+    axios.put(`${API_BASE}/produks/${payload.id}`, payload).then(response => {
+      commit(UPDATE_PRODUCT_SUCCESS, response.data)
+    })
+  },
 }

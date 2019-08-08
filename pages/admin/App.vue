@@ -1,5 +1,5 @@
 <template>
-  <div class="container mt-4">
+  <div class="container mt-4" >
 
     <table class="table table-bordered mt-4">
       <thead class="thead-light">
@@ -56,7 +56,7 @@
           <td>
             <span v-if="editIndex !== index">
               <button @click="edit(item, index)" class="btn btn-sm btn-outline-secondary mr-2">Edit</button>
-              <button @click="remove(item, index)" class="btn btn-sm btn-outline-secondary mr-2">Remove</button>
+              <button @click="deleteProduct(item.id)" class="btn btn-sm btn-outline-secondary mr-2">Remove</button>
             </span>
             <span v-else>
               <button class="btn btn-sm btn-outline-secondary mr-2" @click="cancel(item)">Cancel</button>
@@ -89,11 +89,16 @@ export default {
       editIndex: null,
       originalData: null,
       items: [],
-      tax: 10,
     }
   },
 
   methods: {
+
+    deleteProduct (id) {
+        console.log(id)
+        this.$store.dispatch('removeProduct', id)
+        window.location.reload();
+    },
 
     delete() {
       let self = this;
@@ -143,19 +148,6 @@ export default {
   },
 
   computed: {
-
-    beforeCreate(){
-      let self = this
-      produk.getProduk().then(function(datas) {
-          return datas
-      }).then(function(res){
-          console.log(res)
-          self.items = res
-      }).catch(function(err){
-          console.log(err)
-    })
-  }
-
   },
 
   beforeCreate(){

@@ -51,8 +51,20 @@ export const getters = {
     return state.products.quantity;
   }
 }
-
+import axios from 'axios';
+export const API_BASE = 'http://localhost:3001/api/';
+export const REMOVE_PRODUCT = 'REMOVE_PRODUCT';
+export const REMOVE_PRODUCT_SUCCESS = 'REMOVE_PRODUCT_SUCCESS';
 export const mutations = {
+  REMOVE_PRODUCT: (state, payload) => {
+    state.showLoader = true
+  },
+  REMOVE_PRODUCT_SUCCESS: (state, payload) => {
+    state.showLoader = false
+    const index = state.products.findIndex(p => p.id === payload)
+    console.debug('index', index)
+    state.products.splice(index, 1)
+  },
   SET_CATALOG: (state, products) => {
     state.products = products;
   },
@@ -148,3 +160,11 @@ export const actions = {
     commit("SET_USER", res.data)
   }
 } */
+export const actions = {
+  removeProduct ({commit}, payload) {
+    axios.delete(`${API_BASE}/produks/${payload}`, payload).then(response => {
+      console.debug('response', response.data)
+      commit(REMOVE_PRODUCT_SUCCESS, response.data)
+    })
+  }
+}

@@ -95,10 +95,14 @@
     cursor: pointer;
   }
   a {
-    color: grey;
+    color:whitesmoke;
   }
   .navbar {
-    background-color:  #6495ED;
+    background-color:  #313172;
     height: 60px;
+  }
+  .fa-shopping-cart{
+    color: whitesmoke;
+    font-size: 20px;
   }
 </style>

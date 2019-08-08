@@ -68,7 +68,9 @@
 </template>
 
 <script>
+import employee from "../../api/login/index";
 import { isValidEmail } from '@/assets/validators';
+
 
 export default {
   name: 'login',
@@ -83,6 +85,7 @@ export default {
       emailNotValidLabel: 'Valid email required',
       btnLoggedInLabel: 'Close',
       emailPlaceholder: 'Your email',
+      param:{},
       email: '',
       password: '',
       highlightEmailWithError: null,
@@ -109,6 +112,16 @@ export default {
       this.$store.commit('showLoginModal', false);
     },
     checkForm (e) {
+      const self =this;
+           login.getLogin(window, self.email, self.password)
+          console.log(email,password)
+          .then(function(result){
+            return result;
+          })
+          .then (function(err){
+            console.log(err);
+          })
+
       e.preventDefault();
 
       if (this.email && this.password) {
@@ -151,7 +164,21 @@ export default {
       } else {
         this.highlightPasswordWithError = true;
       }
-    }
+    },
+      // funcLogin(){
+        
+      //     const self = this;
+
+      //     login.getLogin(window, self.email, self.password)
+      //     console.log(email,password)
+      //     .then(function(result){
+      //       return result;
+      //     })
+      //     .then (function(err){
+      //       console.log(err);
+      //     })
+
+      // }
   }
 };
 </script>

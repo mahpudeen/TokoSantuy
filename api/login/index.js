@@ -1,12 +1,13 @@
 import VueResource from 'vue-resource'
 import Vue from 'vue'
-import {getApiNoAuth} from './../utils'
+import {getApiSpringboot} from './../utils'
 
 Vue.use(VueResource)
 
 export default {
-    getProduk (window) {
-        return getApiNoAuth().get('Produks')
+    getLogin (window, email, password) {
+        console.log(email,password)
+        return getApiSpringboot().get('/login/'+email+'/'+password)
         .then(function (response){
             console.log(response)
             return response.data
@@ -14,13 +15,4 @@ export default {
             console.log(err)
         })
     },
-    // submitEmployee(window, param){
-    //     return getApiNoAuth().post('Employees', param)
-    //         .then(function (response){
-    //             console.log(response)
-    //             return response.data
-    //         }).catch(function(err){
-    //             console.log(err)
-    //         })
-    // },
 }

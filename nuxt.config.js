@@ -1,6 +1,15 @@
 const pkg = require('./package')
 
 module.exports = {
+  devServer:{
+    proxy: {
+      '/api': {
+        target: ' https://axios.nuxtjs.org',
+        ws: true,
+        changeOrigin: true
+      }
+    }
+  },
   mode: 'universal',
 
   /*

@@ -3,6 +3,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <nuxt-link :to="{ name: 'index' }" class="navbar-item">
+          <!-- <img src="../../static/logo2.png" alt="Flowers in Chania" class="image"> -->
           <h1 class="title is-3 is-flex-mobile"></h1>
         </nuxt-link>
 
@@ -85,7 +86,7 @@
 
 <style lang="scss" scoped>
   .title {
-    background: url('../../static/vuemmerce-logo.png') no-repeat;
+    background: url('../../static/santuylogo.jpg');
     background-position: 50% 50%;
     background-size: 165px;
     width: 175px;
@@ -95,10 +96,18 @@
     cursor: pointer;
   }
   a {
-    color: grey;
+    color:whitesmoke;
   }
   .navbar {
-    background-color:  #6495ED;
-    height: 60px;
+    background-color: #a10707;
+    height: 80px; 
+  }
+  .fa-shopping-cart{
+    color: whitesmoke;
+    font-size: 20px;
+  }
+  .image{
+    height: 150px;
+    width: 150px
   }
 </style>
